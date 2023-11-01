@@ -1,0 +1,2325 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+  branch: master
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: team
+    label: Team Members
+    folder: cms/team
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_profile-picture
+        label: Profile Picture
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_job-title
+        label: Job Title
+        widget: string
+        required: false
+      - hint: ''
+        name: f_order
+        label: Order
+        widget: number
+        required: true
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: team
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[team].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+    editor:
+      preview: false
+  - name: behandlung
+    label: Services
+    folder: cms/behandlung
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Overview Rich Text
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_order
+        label: Order
+        widget: number
+        required: true
+      - hint: ''
+        name: f_main-color-image
+        label: Thumbnail
+        widget: object
+        required: true
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: true
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_main-image
+        label: Main Image
+        widget: object
+        required: true
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: true
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_type
+        label: Type
+        widget: string
+        required: true
+      - hint: ''
+        name: f_intro-heading
+        label: Intro Heading
+        widget: string
+        required: false
+      - hint: ''
+        name: f_overview-text
+        label: Overview Text
+        widget: text
+        required: true
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: behandlung
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[behandlung].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+    editor:
+      preview: false
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: Ladar, key: 45c95e0'
+            label: Text
+            name: 45c95e0
+            widget: string
+          - hint: 'Original text: Termin buchen, key: 5aa59af0'
+            label: Text
+            name: 5aa59af0
+            widget: string
+          - hint: 'Original text: Menü, key: 248a06'
+            label: Text
+            name: 248a06
+            widget: string
+          - hint: 'Original text: Praxis Ladar, key: 5f02dc43'
+            label: Text
+            name: 5f02dc43
+            widget: string
+          - hint: 'Original text: Schließen, key: 7a10ac38'
+            label: Text
+            name: 7a10ac38
+            widget: string
+          - hint: 'Original text: 01, key: 601'
+            label: Text
+            name: '601'
+            widget: string
+          - hint: 'Original text: Home, key: 2268ff'
+            label: Text
+            name: 2268ff
+            widget: string
+          - hint: 'Original text: 02, key: 602'
+            label: Text
+            name: '602'
+            widget: string
+          - hint: 'Original text: Ambiente, key: -6c9a3b13'
+            label: Text
+            name: '-6c9a3b13'
+            widget: string
+          - hint: 'Original text: 03, key: 603'
+            label: Text
+            name: '603'
+            widget: string
+          - hint: 'Original text: Behandlung, key: 7a0ec354'
+            label: Text
+            name: 7a0ec354
+            widget: string
+          - hint: 'Original text: 04, key: 604'
+            label: Text
+            name: '604'
+            widget: string
+          - hint: 'Original text: Über uns, key: 38557d8d'
+            label: Text
+            name: 38557d8d
+            widget: string
+          - hint: 'Original text: 05, key: 605'
+            label: Text
+            name: '605'
+            widget: string
+          - hint: 'Original text: Team, key: 27b67d'
+            label: Text
+            name: 27b67d
+            widget: string
+          - hint: 'Original text: 06, key: 606'
+            label: Text
+            name: '606'
+            widget: string
+          - hint: 'Original text: Jobs, key: 235076'
+            label: Text
+            name: '235076'
+            widget: string
+          - hint: 'Original text: 07, key: 607'
+            label: Text
+            name: '607'
+            widget: string
+          - hint: 'Original text: Kontakt, key: 43219700'
+            label: Text
+            name: '43219700'
+            widget: string
+          - hint: 'Original text: facebook, key: 1da19ac6'
+            label: Text
+            name: 1da19ac6
+            widget: string
+          - hint: 'Original text: instagram, key: 1b907b2'
+            label: Text
+            name: 1b907b2
+            widget: string
+          - hint: 'Original text: twitter, key: -369e558d'
+            label: Text
+            name: '-369e558d'
+            widget: string
+          - hint: 'Original text: Ken Burns, key: 6144bb78'
+            label: Text
+            name: 6144bb78
+            widget: string
+          - hint: 'Original text: Webflow Ken Burns Effect, key: 7851f157'
+            label: Text
+            name: 7851f157
+            widget: string
+          - hint: 'Original text: Zahnarztpraxis, key: -486efe25'
+            label: Text
+            name: '-486efe25'
+            widget: string
+          - hint: 'Original text: Ladar & Kollegen, key: -6fe76237'
+            label: Text
+            name: '-6fe76237'
+            widget: string
+          - hint: >-
+              Original text: Ihre Spezialisten für Implantologie, , key:
+              1ef98ec7
+            label: Text
+            name: 1ef98ec7
+            widget: string
+          - hint: >-
+              Original text: Ästhetische Zahnheilkunde, Parodontologie,
+              Endodontie, key: 7de9ae95
+            label: Text
+            name: 7de9ae95
+            widget: string
+          - hint: 'Original text: Mehr, key: 2488c2'
+            label: Text
+            name: 2488c2
+            widget: string
+          - hint: 'Original text: Zahnheilkunde, key: -1eb0ab08'
+            label: Text
+            name: '-1eb0ab08'
+            widget: string
+          - hint: 'Original text: auf höchstem Niveau, key: 7902daf4'
+            label: Text
+            name: 7902daf4
+            widget: string
+          - hint: >-
+              Original text: In unserer Zahnarztpraxis stehen Sie im
+              Mittelpunkt. Wir legen nicht nur Wert auf Ihre Zahngesundheit,
+              sondern auch auf Ihr allgemeines Wohlbefinden. , key: 2db51556
+            label: Text
+            name: 2db51556
+            widget: text
+          - hint: >-
+              Original text: Unser Ziel ist es, dass Sie sich bei uns rundum
+              wohl und gut aufgehoben fühlen., key: -6e2bea43
+            label: Text
+            name: '-6e2bea43'
+            widget: string
+          - hint: 'Original text: 1, key: 31'
+            label: Text
+            name: '31'
+            widget: string
+          - hint: 'Original text: Designpreis, key: 2e88efef'
+            label: Text
+            name: 2e88efef
+            widget: string
+          - hint: 'Original text: 4, key: 34'
+            label: Text
+            name: '34'
+            widget: string
+          - hint: 'Original text: Zahnärzte, key: -3d9f38d0'
+            label: Text
+            name: '-3d9f38d0'
+            widget: string
+          - hint: 'Original text: 24, key: 642'
+            label: Text
+            name: '642'
+            widget: string
+          - hint: 'Original text: Langjährige Erfahrung, key: -7aadd58f'
+            label: Text
+            name: '-7aadd58f'
+            widget: string
+          - hint: >-
+              Original text: In unserer Zahnarztpraxis finden Sie nicht nur
+              fachliche Kompetenz, sondern auch ein herzliches Team, das sich
+              darum kümmert, dass Sie sich rundum wohlfühlen. , key: 8c4afc3
+            label: Text
+            name: 8c4afc3
+            widget: text
+          - hint: >-
+              Original text: Vertrauen Sie uns, wir sind hier, um Ihnen ein
+              strahlendes Lächeln und ein gutes Gefühl zu schenken., key:
+              -7daa3a65
+            label: Text
+            name: '-7daa3a65'
+            widget: text
+          - hint: 'Original text: 10, key: 61f'
+            label: Text
+            name: 61f
+            widget: string
+          - hint: 'Original text: 2, key: 32'
+            label: Text
+            name: '32'
+            widget: string
+          - hint: 'Original text: 3, key: 33'
+            label: Text
+            name: '33'
+            widget: string
+          - hint: 'Original text: 27, key: 645'
+            label: Text
+            name: '645'
+            widget: string
+          - hint: 'Original text: 159, key: be95'
+            label: Text
+            name: be95
+            widget: string
+          - hint: 'Original text: 18, key: 627'
+            label: Text
+            name: '627'
+            widget: string
+          - hint: 'Original text: 19, key: 628'
+            label: Text
+            name: '628'
+            widget: string
+          - hint: 'Original text: 20, key: 63e'
+            label: Text
+            name: 63e
+            widget: string
+          - hint: 'Original text: 21, key: 63f'
+            label: Text
+            name: 63f
+            widget: string
+          - hint: 'Original text: 22, key: 640'
+            label: Text
+            name: '640'
+            widget: string
+          - hint: 'Original text: 23, key: 641'
+            label: Text
+            name: '641'
+            widget: string
+          - hint: 'Original text: ‍, key: 200d'
+            label: Text
+            name: 200d
+            widget: string
+          - hint: 'Original text: No items found., key: 3d503d2b'
+            label: Text
+            name: 3d503d2b
+            widget: string
+          - hint: 'Original text: Modernste Praxisausstattung, key: 1c63a68f'
+            label: Text
+            name: 1c63a68f
+            widget: string
+          - hint: >-
+              Original text: In unserer Zahnarztpraxis setzen wir auf
+              hochmoderne Technologie, um Ihr Wohlbefinden und Ihre
+              Zahngesundheit zu fördern. , key: 63fb113a
+            label: Text
+            name: 63fb113a
+            widget: text
+          - hint: >-
+              Original text: Bei uns erwartet Sie eine zeitgemäße Zahnmedizin
+              für ein strahlendes Lächeln und eine sorgenfreie Behandlung., key:
+              2412ca7e
+            label: Text
+            name: 2412ca7e
+            widget: text
+          - hint: 'Original text: Prophylaxe, key: 451cd8f6'
+            label: Text
+            name: 451cd8f6
+            widget: string
+          - hint: "Original text: mehr\_infos, key: 5b482807"
+            label: Text
+            name: 5b482807
+            widget: string
+          - hint: 'Original text: Ästhetische Zahnheilkunde, key: -55df7e84'
+            label: Text
+            name: '-55df7e84'
+            widget: string
+          - hint: 'Original text: Parodontitis, key: 2a9e58b4'
+            label: Text
+            name: 2a9e58b4
+            widget: string
+          - hint: 'Original text: Funktionsanalytische-massnahmen, key: 2d3dd3f2'
+            label: Text
+            name: 2d3dd3f2
+            widget: string
+          - hint: 'Original text: Wurzel-, key: -379b6720'
+            label: Text
+            name: '-379b6720'
+            widget: string
+          - hint: 'Original text: behandlung, key: 33ce734'
+            label: Text
+            name: 33ce734
+            widget: string
+          - hint: 'Original text: Bleaching, key: -695d0969'
+            label: Text
+            name: '-695d0969'
+            widget: string
+          - hint: 'Original text: Implantologie, key: 99c3eb8'
+            label: Text
+            name: 99c3eb8
+            widget: string
+          - hint: 'Original text: Zahnersatz-versorgung, key: 3b3b9f99'
+            label: Text
+            name: 3b3b9f99
+            widget: string
+          - hint: 'Original text: Kinderzahn-medizin, key: -7723e39d'
+            label: Text
+            name: '-7723e39d'
+            widget: string
+          - hint: 'Original text: Inraoral-scanner, key: 585604b3'
+            label: Text
+            name: 585604b3
+            widget: string
+          - hint: 'Original text: Praxisteam, key: 3f6239a0'
+            label: Text
+            name: 3f6239a0
+            widget: string
+          - hint: 'Original text: Dr. med. stom (UMF Temeschburg), key: 223254c9'
+            label: Text
+            name: 223254c9
+            widget: string
+          - hint: 'Original text: Desirée Ladar, key: 24f7faf7'
+            label: Text
+            name: 24f7faf7
+            widget: string
+          - hint: 'Original text: Zahnärztin, key: -7647e046'
+            label: Text
+            name: '-7647e046'
+            widget: string
+          - hint: 'Original text: Tätigkeitsschwerpunkt , key: 53ef7c46'
+            label: Text
+            name: 53ef7c46
+            widget: string
+          - hint: 'Original text: Parodontologie , key: -3efc3790'
+            label: Text
+            name: '-3efc3790'
+            widget: string
+          - hint: 'Original text: Endodontie, key: -3e0f077f'
+            label: Text
+            name: '-3e0f077f'
+            widget: string
+          - hint: >-
+              Original text: "Ein Lächeln ist das schönste was man tragen
+              kann.", key: -466e253e
+            label: Text
+            name: '-466e253e'
+            widget: string
+          - hint: >-
+              Original text: (1991-1997) Studium der Zahnmedizin an der
+              UMFTemeschburg, key: -876a8e0
+            label: Text
+            name: '-876a8e0'
+            widget: string
+          - hint: 'Original text: (2005) Curriculum Parodontologie, key: ce85313'
+            label: Text
+            name: ce85313
+            widget: string
+          - hint: >-
+              Original text: (2012) Curriculum Implantologie an der ZFZ
+              Stuttgart, key: -3188dd15
+            label: Text
+            name: '-3188dd15'
+            widget: string
+          - hint: >-
+              Original text: (2014-2015) Tec2 Curriculum Endodontie in
+              Zusammenarbeit mit der University of Pennsylvania, key: 6a6ddce9
+            label: Text
+            name: 6a6ddce9
+            widget: text
+          - hint: >-
+              Original text: (2003) Niederlassung in der Gemeinschaftspraxis
+              Ladar Desiree & Emil — Freudenstadt, key: -3188a97
+            label: Text
+            name: '-3188a97'
+            widget: string
+          - hint: 'Original text: Emil Ladar, key: 2062d16b'
+            label: Text
+            name: 2062d16b
+            widget: string
+          - hint: 'Original text: Zahnarzt , key: -44d54018'
+            label: Text
+            name: '-44d54018'
+            widget: string
+          - hint: 'Original text: Tätigkeitsschwerpunkt Implantologie, key: 25b6432'
+            label: Text
+            name: 25b6432
+            widget: string
+          - hint: >-
+              Original text: "Perfektion und Präzision, das ist mein ganz
+              persönlicher Qualitätsanspruch.", key: 582c47ad
+            label: Text
+            name: 582c47ad
+            widget: string
+          - hint: >-
+              Original text: (2004-2005) Curriculum Implantologie bei der DGOI,
+              key: -6fc8fb4a
+            label: Text
+            name: '-6fc8fb4a'
+            widget: string
+          - hint: 'Original text: (2015) Curriculum Parodontologie, key: 36383794'
+            label: Text
+            name: '36383794'
+            widget: string
+          - hint: 'Original text: Dr. Sandra Duma, key: -65ed06ae'
+            label: Text
+            name: '-65ed06ae'
+            widget: string
+          - hint: >-
+              Original text: "Kompetente Beratungen, schmerzarme und qualitative
+              Behandlungen sowie die nötige Prise Spaß stehen für mich an erster
+              Stelle.", key: 2abbb4f4
+            label: Text
+            name: 2abbb4f4
+            widget: text
+          - hint: >-
+              Original text: (2014-2020) Studium der Zahnmedizin an der
+              Ludwig-Maximilians-Universität München, key: 2ac49ff2
+            label: Text
+            name: 2ac49ff2
+            widget: string
+          - hint: >-
+              Original text: (2019-2023) Promotion zum Dr. med. dent. an der
+              Poliklinik für Zahnerhaltung und Parodontologie München, key:
+              36b95894
+            label: Text
+            name: 36b95894
+            widget: text
+          - hint: >-
+              Original text: (Seit 2020) Angestellte Zahnärztin bei der
+              Gemeinschaftspraxis Dres. Ladar in Freudenstadt, key: -14b59c9b
+            label: Text
+            name: '-14b59c9b'
+            widget: string
+          - hint: >-
+              Original text: (2022) Publikation mit dem Titel „Adhesion to a
+              CAD/CAM composite: causal factors for a reliable long-term bond“
+              im Journal of Functional Biomaterials, key: 1e9509dd
+            label: Text
+            name: 1e9509dd
+            widget: text
+          - hint: >-
+              Original text: (Seit 2023) Tec2 Curriculum Endodontie in
+              Zusammenarbeit mit der University of, key: -121d954b
+            label: Text
+            name: '-121d954b'
+            widget: string
+          - hint: 'Original text: Pennsylvania, key: 3ca5a60a'
+            label: Text
+            name: 3ca5a60a
+            widget: string
+          - hint: 'Original text: Dr. Tobias Pfeifer, key: -2c1a9d53'
+            label: Text
+            name: '-2c1a9d53'
+            widget: string
+          - hint: >-
+              Original text: "Gesunde und schöne Zähne sind für mich nicht nur
+              Geschmackssache.", key: -5030d68d
+            label: Text
+            name: '-5030d68d'
+            widget: string
+          - hint: "Original text: (2018) Studium der Zahnmedizin an der Ruprechts-Karls-Universität Heidelberg\_, key: 6ee1a49c"
+            label: Text
+            name: 6ee1a49c
+            widget: string
+          - hint: "Original text: (2021) Promotion zum Dr. med. dent an der Universität Heidelberg\_, key: 500e5ea4"
+            label: Text
+            name: 500e5ea4
+            widget: string
+          - hint: >-
+              Original text: (2021-2022) Curriculum Implantologie der DGi, key:
+              4a7b3487
+            label: Text
+            name: 4a7b3487
+            widget: string
+          - hint: 'Original text: Lass uns, key: -53480af1'
+            label: Text
+            name: '-53480af1'
+            widget: string
+          - hint: 'Original text: reden, key: 675e4fa'
+            label: Text
+            name: 675e4fa
+            widget: string
+          - hint: 'Original text: Wir Suchen Dich, key: 6c2c143a'
+            label: Text
+            name: 6c2c143a
+            widget: string
+          - hint: 'Original text: Impressum, key: 6f6b7057'
+            label: Text
+            name: 6f6b7057
+            widget: string
+          - hint: 'Original text: ©2023 , key: 233a2bf8'
+            label: Text
+            name: 233a2bf8
+            widget: string
+          - hint: 'Original text: Mit ❤️ von , key: 6d87d3d8'
+            label: Text
+            name: 6d87d3d8
+            widget: string
+          - hint: 'Original text: Studio ROVST , key: 521a4ef0'
+            label: Text
+            name: 521a4ef0
+            widget: string
+          - hint: 'Original text: geschaffen, key: -6144ccf0'
+            label: Text
+            name: '-6144ccf0'
+            widget: string
+          - hint: 'Original text: Protected Page, key: -11d4bbff'
+            label: Text
+            name: '-11d4bbff'
+            widget: string
+          - hint: 'Original text: Password, key: 4c641ebb'
+            label: Text
+            name: 4c641ebb
+            widget: string
+          - hint: 'Original text: Submit, key: -6bbed3c8'
+            label: Text
+            name: '-6bbed3c8'
+            widget: string
+          - hint: >-
+              Original text: Incorrect password. Please try again., key:
+              -f5c4b5f
+            label: Text
+            name: '-f5c4b5f'
+            widget: string
+          - hint: 'Original text: Navigation, key: -1a2819cc'
+            label: Text
+            name: '-1a2819cc'
+            widget: string
+          - hint: 'Original text: About, key: 3c2336d'
+            label: Text
+            name: 3c2336d
+            widget: string
+          - hint: 'Original text: Services, key: 560f747e'
+            label: Text
+            name: 560f747e
+            widget: string
+          - hint: 'Original text: Projects, key: -37ac8366'
+            label: Text
+            name: '-37ac8366'
+            widget: string
+          - hint: 'Original text: Contact, key: -64104400'
+            label: Text
+            name: '-64104400'
+            widget: string
+          - hint: 'Original text: Template Navigation, key: 2e18897a'
+            label: Text
+            name: 2e18897a
+            widget: string
+          - hint: 'Original text: Style Guide, key: -7aba473'
+            label: Text
+            name: '-7aba473'
+            widget: string
+          - hint: 'Original text: Licenses, key: 37fa6872'
+            label: Text
+            name: 37fa6872
+            widget: string
+          - hint: 'Original text: Instructions, key: 36eff9c5'
+            label: Text
+            name: 36eff9c5
+            widget: string
+          - hint: 'Original text: Changelog, key: -31d02e8c'
+            label: Text
+            name: '-31d02e8c'
+            widget: string
+          - hint: 'Original text: Newsletter, key: -47761f27'
+            label: Text
+            name: '-47761f27'
+            widget: string
+          - hint: 'Original text: Subscribe, key: -69de02d6'
+            label: Text
+            name: '-69de02d6'
+            widget: string
+          - hint: >-
+              Original text: Thank you! Your submission has been received!, key:
+              5a0ea5a1
+            label: Text
+            name: 5a0ea5a1
+            widget: string
+          - hint: >-
+              Original text: Oops! Something went wrong while submitting the
+              form., key: -7c112e99
+            label: Text
+            name: '-7c112e99'
+            widget: string
+          - hint: 'Original text: Powered by , key: -6498b733'
+            label: Text
+            name: '-6498b733'
+            widget: string
+          - hint: 'Original text: Webflow, key: -53d3659e'
+            label: Text
+            name: '-53d3659e'
+            widget: string
+          - hint: 'Original text: Made by , key: -5c51ec2'
+            label: Text
+            name: '-5c51ec2'
+            widget: string
+          - hint: 'Original text: Tim Poličar, key: 75f500fa'
+            label: Text
+            name: 75f500fa
+            widget: string
+          - hint: 'Original text: Praxis Team, key: -57c26846'
+            label: Text
+            name: '-57c26846'
+            widget: string
+          - hint: 'Original text: Page Not Found, key: -40b0787c'
+            label: Text
+            name: '-40b0787c'
+            widget: string
+          - hint: >-
+              Original text: The page you are looking for doesn't exist or has
+              been moved, key: 556d64d8
+            label: Text
+            name: 556d64d8
+            widget: string
+          - hint: 'Original text: Homepage, key: -1913cbf2'
+            label: Text
+            name: '-1913cbf2'
+            widget: string
+          - hint: 'Original text: 404 Page, key: 5f8d0097'
+            label: Text
+            name: 5f8d0097
+            widget: string
+          - hint: 'Original text: Über, key: 657e33'
+            label: Text
+            name: '657e33'
+            widget: string
+          - hint: "Original text: \_UNS, key: 4a043a"
+            label: Text
+            name: 4a043a
+            widget: string
+          - hint: 'Original text: Jeder Patient, key: -440ede65'
+            label: Text
+            name: '-440ede65'
+            widget: string
+          - hint: 'Original text: liegt uns am Herzen, key: 2dea16f1'
+            label: Text
+            name: 2dea16f1
+            widget: string
+          - hint: >-
+              Original text: Neben fachlicher Kompetenz werden Sie bei uns ein
+              herzliches Team vorfinden, bei dem Sie sich rundum wohlfühlen
+              können, key: -5c8ae477
+            label: Text
+            name: '-5c8ae477'
+            widget: text
+          - hint: 'Original text: Persönliche Aufmerksamkeit, key: 1fcb7c2c'
+            label: Text
+            name: 1fcb7c2c
+            widget: string
+          - hint: >-
+              Original text: Das individuelle persönliche Beratungsgespräch und
+              die ausführliche medizinische Untersuchung vor jeder
+              therapeutischen Maßnahme besitzt in unserer Praxis einen hohen
+              Stellenwert., key: 123fcfcc
+            label: Text
+            name: 123fcfcc
+            widget: text
+          - hint: >-
+              Original text: Ihr Vertrauen ist die Basis für eine erfolgreiche
+              Behandlung, key: -50d1d041
+            label: Text
+            name: '-50d1d041'
+            widget: string
+          - hint: >-
+              Original text: Wir nehmen uns Zeit um Ihre Wünsche und
+              Vorstellungen bezüglich Ihrer Behandlung gemeinsam mit Ihnen zu
+              erarbeiten., key: e5fe8ae
+            label: Text
+            name: e5fe8ae
+            widget: text
+          - hint: >-
+              Original text: Unsere Praxisräume sind mit der modernsten Technik
+              ausgestattet, damit die Behandlung für Sie so angenehm wie möglich
+              ablaufen kann., key: 31705324
+            label: Text
+            name: '31705324'
+            widget: text
+          - hint: 'Original text: Erfahrung, key: -81745a4'
+            label: Text
+            name: '-81745a4'
+            widget: string
+          - hint: 'Original text: 24 , key: c21e'
+            label: Text
+            name: c21e
+            widget: string
+          - hint: 'Original text: Jahre Erfahrung, key: 201dc920'
+            label: Text
+            name: 201dc920
+            widget: string
+          - hint: 'Original text: 1 , key: 60f'
+            label: Text
+            name: 60f
+            widget: string
+          - hint: 'Original text: 4 , key: 66c'
+            label: Text
+            name: 66c
+            widget: string
+          - hint: 'Original text: Experten, key: -6f7f838d'
+            label: Text
+            name: '-6f7f838d'
+            widget: string
+          - hint: 'Original text: 12,000 , key: 77e63c9b'
+            label: Text
+            name: 77e63c9b
+            widget: string
+          - hint: 'Original text: Zufriedene Kunden, key: 115b77ee'
+            label: Text
+            name: 115b77ee
+            widget: string
+          - hint: "Original text: \_Leidenschaft für unsere Patienten, key: 5e807c5c"
+            label: Text
+            name: 5e807c5c
+            widget: string
+          - hint: 'Original text: 2019 Designpreis, key: 62fee7b5'
+            label: Text
+            name: 62fee7b5
+            widget: string
+          - hint: >-
+              Original text: Zahnärztliche Gemeinschaftspraxis Ladar Dr. Desirée
+              Ladar, Dr. Emil Ladar, Freudenstadt, key: -47744245
+            label: Text
+            name: '-47744245'
+            widget: string
+          - hint: >-
+              Original text: Wer mit dem Schwarzwald lediglich Bäume und
+              Bollenhüte verbindet, wird durch die Gemeinschaftspraxis Ladar in
+              Freudenstadt seinen Horizont erweitert sehen. , key: 5c50337c
+            label: Text
+            name: 5c50337c
+            widget: text
+          - hint: >-
+              Original text: Das kühn-kühle Gebäude nahe desBahnhofes wurde
+              speziell konzipiert, um eine auf die Bedürfnisse der Arbeitswelt
+              maßgeschneiderte Umgebung zu schaffen. , key: 64d85707
+            label: Text
+            name: 64d85707
+            widget: text
+          - hint: >-
+              Original text: Die Architekten des Büros W:Architekten
+              (Freudenstadt) übernahmen neben dem Gebäude selbst auch diePlanung
+              der Praxis von Dr. Desirée und Dr. Emil Ladar., key: -1d6323ea
+            label: Text
+            name: '-1d6323ea'
+            widget: text
+          - hint: >-
+              Original text: Hier stehen dreiwichtige Aspekte im Vordergrund:
+              Wohlfühlambiente, Funktionalität und Form. Dementsprechend wurden
+              für die mondän elegante Praxis zwei Farbweltendefiniert: Die
+              beruhigenden Töne Beige, Taupe, Metallic-Roségold undDunkelbraun
+              im Empfangsbereich und im Wartezimmer zum einen erwecken den
+              Eindruck einer Lounge, wie man sie auch in New York oder London
+              finden könnte. , key: -3864620a
+            label: Text
+            name: '-3864620a'
+            widget: text
+          - hint: >-
+              Original text: Als besonderes Highlight gestaltet sich hier das
+              handgefertigte 3D-Kunstwerkhinter dem markanten Tresen, wofür
+              echte Lotusblätter einzeln zu einemflüssigen Unikat bearbeitet
+              wurden. , key: 3f8c5053
+            label: Text
+            name: 3f8c5053
+            widget: text
+          - hint: >-
+              Original text: Zum anderen sorgen Weißtöne in den
+              Behandlungszimmern, dem Büro und im Personalraum für eine helle,
+              freundliche und saubere Umgebung. Die Architekten dieser Praxis
+              vollbrachten es inFreudenstadt, Funktionalität und Form einer
+              eleganten Wohlfühlatmosphäre beizuordnen – ganz ohne Bäume und
+              Bollenhüte., key: 18a584da
+            label: Text
+            name: 18a584da
+            widget: text
+          - hint: 'Original text: Awards, key: 75a5bdd6'
+            label: Text
+            name: 75a5bdd6
+            widget: string
+          - hint: 'Original text: Dribble, key: -2a5a1e4c'
+            label: Text
+            name: '-2a5a1e4c'
+            widget: string
+          - hint: 'Original text: 2018, key: 1774e5'
+            label: Text
+            name: '1774e5'
+            widget: string
+          - hint: 'Original text: CSSWinner, key: 3d00bc02'
+            label: Text
+            name: 3d00bc02
+            widget: string
+          - hint: 'Original text: Creative, key: 705bd3cf'
+            label: Text
+            name: 705bd3cf
+            widget: string
+          - hint: 'Original text: 2022, key: 1774fe'
+            label: Text
+            name: 1774fe
+            widget: string
+          - hint: 'Original text: Awwwards, key: -3702a0ca'
+            label: Text
+            name: '-3702a0ca'
+            widget: string
+          - hint: 'Original text: ColorWhistle, key: -20b69171'
+            label: Text
+            name: '-20b69171'
+            widget: string
+          - hint: 'Original text: Beautify, key: 5310165f'
+            label: Text
+            name: 5310165f
+            widget: string
+          - hint: 'Original text: Webby, key: 4f9628b'
+            label: Text
+            name: 4f9628b
+            widget: string
+          - hint: 'Original text: 2017, key: 1774e4'
+            label: Text
+            name: '1774e4'
+            widget: string
+          - hint: 'Original text: Amazing , key: -6d5db47d'
+            label: Text
+            name: '-6d5db47d'
+            widget: string
+          - hint: 'Original text: 2019, key: 1774e6'
+            label: Text
+            name: '1774e6'
+            widget: string
+          - hint: 'Original text: FWAwards, key: -2889da19'
+            label: Text
+            name: '-2889da19'
+            widget: string
+          - hint: 'Original text: 2021, key: 1774fd'
+            label: Text
+            name: 1774fd
+            widget: string
+          - hint: 'Original text: Amazing, key: 2e053c3d'
+            label: Text
+            name: 2e053c3d
+            widget: string
+          - hint: 'Original text: Our team, key: 3796d1'
+            label: Text
+            name: 3796d1
+            widget: string
+          - hint: 'Original text: John Doe, key: -517fa35b'
+            label: Text
+            name: '-517fa35b'
+            widget: string
+          - hint: >-
+              Original text: Iaculis lectus leo ut egestas. Semper sollicitudin
+              nunc, enim dolor ut ac. Aliquet diam nibh risus fermentum, mattis
+              in molestie., key: -76ce39a3
+            label: Text
+            name: '-76ce39a3'
+            widget: text
+          - hint: 'Original text: CEO, Dinser Agency, key: -79d5a7b3'
+            label: Text
+            name: '-79d5a7b3'
+            widget: string
+          - hint: "Original text: Emil Ladar,\_M.D., key: 358476ca"
+            label: Text
+            name: 358476ca
+            widget: string
+          - hint: 'Original text: Carolina Depp, key: 1adb2bb6'
+            label: Text
+            name: 1adb2bb6
+            widget: string
+          - hint: 'Original text: Art Director, Everlast Inc., key: 2d0f3aff'
+            label: Text
+            name: 2d0f3aff
+            widget: string
+          - hint: 'Original text: Superb, key: -6bb89399'
+            label: Text
+            name: '-6bb89399'
+            widget: string
+          - hint: 'Original text: Desiree Ladar, M.D., key: 65790da'
+            label: Text
+            name: 65790da
+            widget: string
+          - hint: 'Original text: Sandra Williams, key: 597aa35d'
+            label: Text
+            name: 597aa35d
+            widget: string
+          - hint: 'Original text: Designer, Gondric Berry, key: -2fb7137b'
+            label: Text
+            name: '-2fb7137b'
+            widget: string
+          - hint: 'Original text: Exquisite, key: -30bc60a7'
+            label: Text
+            name: '-30bc60a7'
+            widget: string
+          - hint: >-
+              Original text: Sandra Williams, Designer Gondric Berry, key:
+              -48bf65a0
+            label: Text
+            name: '-48bf65a0'
+            widget: string
+          - hint: 'Original text: Em, key: 8c8'
+            label: Text
+            name: 8c8
+            widget: string
+          - hint: 'Original text: Art Director, Galax Timber, key: -4f87d0b5'
+            label: Text
+            name: '-4f87d0b5'
+            widget: string
+          - hint: 'Original text: Marvelous, key: 528bad4e'
+            label: Text
+            name: 528bad4e
+            widget: string
+          - hint: >-
+              Original text: Luke Peterson, Art Director Galax Timber, key:
+              -110b9b32
+            label: Text
+            name: '-110b9b32'
+            widget: string
+          - hint: 'Original text: KontaKt, key: 43219320'
+            label: Text
+            name: '43219320'
+            widget: string
+          - hint: >-
+              Original text: Gemeinschaftspraxis Ladar Desiree & Emil, key:
+              19f40f86
+            label: Text
+            name: 19f40f86
+            widget: string
+          - hint: 'Original text: Hindenburgstr. 2, key: 24fb8a37'
+            label: Text
+            name: 24fb8a37
+            widget: string
+          - hint: 'Original text: 72250 Freudenstadt, key: -6ee42ed3'
+            label: Text
+            name: '-6ee42ed3'
+            widget: string
+          - hint: 'Original text: Termine nach Vereinbarung., key: 771c5ad0'
+            label: Text
+            name: 771c5ad0
+            widget: string
+          - hint: 'Original text: Alle Kassen und Privat., key: -5cad338e'
+            label: Text
+            name: '-5cad338e'
+            widget: string
+          - hint: 'Original text: Unsere Sprechzeiten:, key: 5dc3b984'
+            label: Text
+            name: 5dc3b984
+            widget: string
+          - hint: 'Original text: Morgen, key: -764945a0'
+            label: Text
+            name: '-764945a0'
+            widget: string
+          - hint: 'Original text: Nachmittag, key: 5e94dba'
+            label: Text
+            name: 5e94dba
+            widget: string
+          - hint: 'Original text: previous slide, key: -57da48b8'
+            label: Text
+            name: '-57da48b8'
+            widget: string
+          - hint: 'Original text: next slide, key: 5d909a44'
+            label: Text
+            name: 5d909a44
+            widget: string
+          - hint: 'Original text: Montag, key: -764ae6d2'
+            label: Text
+            name: '-764ae6d2'
+            widget: string
+          - hint: 'Original text: 8.00 – 12.30 Uhr, key: 385eead2'
+            label: Text
+            name: 385eead2
+            widget: string
+          - hint: 'Original text: 14.30 – 18.00 Uhr, key: 325cd1c1'
+            label: Text
+            name: 325cd1c1
+            widget: string
+          - hint: 'Original text: Dienstag, key: -32430ab'
+            label: Text
+            name: '-32430ab'
+            widget: string
+          - hint: 'Original text: 8.00 – 14.00 Uhr, key: 302bab3'
+            label: Text
+            name: 302bab3
+            widget: string
+          - hint: 'Original text: —, key: 2014'
+            label: Text
+            name: '2014'
+            widget: string
+          - hint: 'Original text: Mittwoch, key: -424a9f87'
+            label: Text
+            name: '-424a9f87'
+            widget: string
+          - hint: 'Original text: 14.00 – 18.00 Uhr, key: -733c8b1c'
+            label: Text
+            name: '-733c8b1c'
+            widget: string
+          - hint: 'Original text: Donnerstag, key: 3db2dfdf'
+            label: Text
+            name: 3db2dfdf
+            widget: string
+          - hint: 'Original text: Freitag, key: 3f3d6b0a'
+            label: Text
+            name: 3f3d6b0a
+            widget: string
+          - hint: 'Original text: 8.00 – 13.00 Uhr, key: -64de722c'
+            label: Text
+            name: '-64de722c'
+            widget: string
+          - hint: 'Original text: TERMIN BUCHEN, key: -7e7414f0'
+            label: Text
+            name: '-7e7414f0'
+            widget: string
+          - hint: 'Original text: praxis-ladar@t-online.de, key: -315b2107'
+            label: Text
+            name: '-315b2107'
+            widget: string
+          - hint: 'Original text: Tel. 07441-4222, key: d72698e'
+            label: Text
+            name: d72698e
+            widget: string
+          - hint: 'Original text: Fax. 07441-51124, key: 79e61005'
+            label: Text
+            name: '79e61005'
+            widget: string
+          - hint: 'Original text: Uber, key: 28201a'
+            label: Text
+            name: 28201a
+            widget: string
+          - hint: 'Original text: Zahnheilkunde auf Höchstem Niveau, key: -45a47854'
+            label: Text
+            name: '-45a47854'
+            widget: string
+          - hint: >-
+              Original text: Willkommen bei Praxis Ladar! Wir behandeln wie wir
+              selber gerne behandelt würden., key: 292021fe
+            label: Text
+            name: 292021fe
+            widget: string
+          - hint: 'Original text: Entdecken, key: 41e88f9d'
+            label: Text
+            name: 41e88f9d
+            widget: string
+          - hint: 'Original text: Kinderzahnmedizin, key: 1fc288d4'
+            label: Text
+            name: 1fc288d4
+            widget: string
+          - hint: 'Original text: Angstpatienten, key: 6d9f5f33'
+            label: Text
+            name: 6d9f5f33
+            widget: string
+          - hint: 'Original text: Über Uns, key: 3855056d'
+            label: Text
+            name: 3855056d
+            widget: string
+          - hint: 'Original text: 13, key: 622'
+            label: Text
+            name: '622'
+            widget: string
+          - hint: 'Original text: Years of experience, key: -42858b97'
+            label: Text
+            name: '-42858b97'
+            widget: string
+          - hint: 'Original text: Design awards, key: c11d638'
+            label: Text
+            name: c11d638
+            widget: string
+          - hint: 'Original text: 169, key: beb4'
+            label: Text
+            name: beb4
+            widget: string
+          - hint: 'Original text: Projects completed, key: 4a4b1e45'
+            label: Text
+            name: 4a4b1e45
+            widget: string
+          - hint: >-
+              Original text: Ihr Wohlbefinden steht im Mittelpunkt unseres
+              Praxisteams. Es ist unser Anliegen das Bestmögliche für Sie und
+              Ihre Gesundheit in einer angst- und schmerzfreien Atmosphäre ohne
+              unnötige Wartezeiten zu tun., key: -4bd60c3d
+            label: Text
+            name: '-4bd60c3d'
+            widget: text
+          - hint: 'Original text: 163, key: beae'
+            label: Text
+            name: beae
+            widget: string
+          - hint: 'Original text: 164, key: beaf'
+            label: Text
+            name: beaf
+            widget: string
+          - hint: 'Original text: 165, key: beb0'
+            label: Text
+            name: beb0
+            widget: string
+          - hint: 'Original text: 166, key: beb1'
+            label: Text
+            name: beb1
+            widget: string
+          - hint: 'Original text: 167, key: beb2'
+            label: Text
+            name: beb2
+            widget: string
+          - hint: 'Original text: 168, key: beb3'
+            label: Text
+            name: beb3
+            widget: string
+          - hint: 'Original text: Discover, key: 1422dc09'
+            label: Text
+            name: 1422dc09
+            widget: string
+          - hint: 'Original text: See All , key: 3b12828c'
+            label: Text
+            name: 3b12828c
+            widget: string
+          - hint: 'Original text: My Projects, key: -6f9e6792'
+            label: Text
+            name: '-6f9e6792'
+            widget: string
+          - hint: 'Original text: Parodontitisbehandlung, key: 4e9aeee8'
+            label: Text
+            name: 4e9aeee8
+            widget: string
+          - hint: 'Original text: Hochwertiger Zahnersatz, key: 3ef8e67'
+            label: Text
+            name: 3ef8e67
+            widget: string
+          - hint: 'Original text: Wurtzbehandlung, key: 6f002d6e'
+            label: Text
+            name: 6f002d6e
+            widget: string
+          - hint: 'Original text: Knirschertherapie, key: 437c6a85'
+            label: Text
+            name: 437c6a85
+            widget: string
+          - hint: >-
+              Original text: Facilisis hendrerit sit tellus dignissim. Neque, a,
+              pellentesque duis magna nisi etiam volutpat. Cursus volutpat
+              facilisi eu aliquet volutpat sodales id. Leo lorem adipiscing
+              posuere varius. Aliquet ut faucibus id sed nisl. Id id egestas
+              nunc, lorem quam. Tincidunt vel duis at interdum cursus sem. A
+              elit risus aenean lacus pharetra., key: 69ed723f
+            label: Text
+            name: 69ed723f
+            widget: text
+          - hint: 'Original text: Behandlung von Parodontitis, key: -304b4e95'
+            label: Text
+            name: '-304b4e95'
+            widget: string
+          - hint: 'Original text: Wurtz-behandlung, key: 3c15d427'
+            label: Text
+            name: 3c15d427
+            widget: string
+          - hint: 'Original text: Knirscher-therapie, key: 7510c220'
+            label: Text
+            name: 7510c220
+            widget: string
+          - hint: 'Original text: More , key: 4713f4b'
+            label: Text
+            name: 4713f4b
+            widget: string
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Suspendisse varius enim in eros elementum tristique. Duis
+              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+              commodo diam libero vitae erat. Aenean faucibus nibh et justo
+              cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus
+              tristique posuere., key: -5286fc08
+            label: Text
+            name: '-5286fc08'
+            widget: text
+          - hint: >-
+              Original text: This is some text inside of a div block., key:
+              7635fb4f
+            label: Text
+            name: 7635fb4f
+            widget: string
+          - hint: 'Original text: Tätigkeitsschwerpunkt Parodontologie, key: 255f7776'
+            label: Text
+            name: 255f7776
+            widget: string
+          - hint: 'Original text: Tätigkeitsschwerpunkt ...., key: -643e7b3a'
+            label: Text
+            name: '-643e7b3a'
+            widget: string
+          - hint: 'Original text: Tätigkeitsschwerpunkt ..., key: -55d07798'
+            label: Text
+            name: '-55d07798'
+            widget: string
+          - hint: 'Original text: Style G., key: 7aef1db6'
+            label: Text
+            name: 7aef1db6
+            widget: string
+          - hint: 'Original text: ., key: 2e'
+            label: Text
+            name: 2e
+            widget: string
+          - hint: >-
+              Original text: This page contains all styles/elements that are
+              used very often, key: 21edc2e7
+            label: Text
+            name: 21edc2e7
+            widget: string
+          - hint: 'Original text: H1, key: 8e9'
+            label: Text
+            name: '8e9'
+            widget: string
+          - hint: 'Original text: Heading 1, Poppins, Bold, 10.5vw, key: 18e07a1c'
+            label: Text
+            name: 18e07a1c
+            widget: string
+          - hint: 'Original text: H2, key: 8ea'
+            label: Text
+            name: 8ea
+            widget: string
+          - hint: 'Original text: Heading 2, Poppins, Semi Bold, 3.6vw, key: 1fd71a6c'
+            label: Text
+            name: 1fd71a6c
+            widget: string
+          - hint: 'Original text: Sec, key: 14431'
+            label: Text
+            name: '14431'
+            widget: string
+          - hint: >-
+              Original text: Section Outlined Heading, Poppins, Bold, 14vw, key:
+              1c675ecd
+            label: Text
+            name: 1c675ecd
+            widget: string
+          - hint: 'Original text: BT, key: 852'
+            label: Text
+            name: '852'
+            widget: string
+          - hint: 'Original text: Big Text, Poppins, Bold, 9vw, key: 7af2423f'
+            label: Text
+            name: 7af2423f
+            widget: string
+          - hint: 'Original text: Anim, key: 1f3631'
+            label: Text
+            name: 1f3631
+            widget: string
+          - hint: >-
+              Original text: Animation Item Text, Poppins, Bold, 32px, key:
+              -14467b6f
+            label: Text
+            name: '-14467b6f'
+            widget: string
+          - hint: 'Original text: Paragraph, key: -145e16b2'
+            label: Text
+            name: '-145e16b2'
+            widget: string
+          - hint: 'Original text: Paragraph, Poppins, Light, 18px, key: 6aec97d8'
+            label: Text
+            name: 6aec97d8
+            widget: string
+          - hint: 'Original text: Primary Button, Poppins, Bold, 18px, key: 2292bea7'
+            label: Text
+            name: 2292bea7
+            widget: string
+          - hint: >-
+              Original text: Secondary Button, Poppins, Bold, 20px, key:
+              -ad6be90
+            label: Text
+            name: '-ad6be90'
+            widget: string
+          - hint: >-
+              Original text: In unserer Zahnarztpraxis liegt uns jeder Patient
+              am Herzen., key: -37d640a0
+            label: Text
+            name: '-37d640a0'
+            widget: string
+          - hint: >-
+              Original text: Ihr Wohlbefinden und Ihre Gesundheit sind unsere
+              oberste Priorität, denn wir sind hier, um Ihr strahlendes Lächeln
+              zu erhalten und zu fördern., key: -705be0d0
+            label: Text
+            name: '-705be0d0'
+            widget: text
+          - hint: 'Original text: Ärzte, key: affa97d'
+            label: Text
+            name: affa97d
+            widget: string
+          - hint: 'Original text: Wir, key: 153c0'
+            label: Text
+            name: 153c0
+            widget: string
+          - hint: 'Original text: suchen dich, key: -51456766'
+            label: Text
+            name: '-51456766'
+            widget: string
+          - hint: 'Original text: Stellenbeschreibung, key: 76451efa'
+            label: Text
+            name: 76451efa
+            widget: string
+          - hint: >-
+              Original text: Zahnmedizinische Fachangestellte (m/w/d) für die
+              Stuhlassistenz, key: 411229e2
+            label: Text
+            name: '411229e2'
+            widget: string
+          - hint: >-
+              Original text: Auszubildende (m/w/d) zur Zahnmedizinischen
+              Fachangestellten., key: -4ac65368
+            label: Text
+            name: '-4ac65368'
+            widget: string
+          - hint: >-
+              Original text: Quer- und Wiedereinsteiger sind willkommen!, key:
+              54e89752
+            label: Text
+            name: '54e89752'
+            widget: string
+          - hint: 'Original text: Das bietest Du:, key: -564e591'
+            label: Text
+            name: '-564e591'
+            widget: string
+          - hint: >-
+              Original text: Du hast eine abgeschlossene Ausbildung zur ZFA.,
+              key: 72478fc0
+            label: Text
+            name: 72478fc0
+            widget: string
+          - hint: >-
+              Original text: Du arbeitest sorgfältig und bringst ein hohes
+              Engagement sowie eine ausgeprägte Eigenverantwortung mit., key:
+              -4d965ba2
+            label: Text
+            name: '-4d965ba2'
+            widget: text
+          - hint: >-
+              Original text: Du hast ein freundliches und empathisches
+              Auftreten., key: 8b71bb6
+            label: Text
+            name: 8b71bb6
+            widget: string
+          - hint: >-
+              Original text: Du bist ein Teamplayer mit viel Freude an Deinem
+              Job., key: -901e3e8
+            label: Text
+            name: '-901e3e8'
+            widget: string
+          - hint: 'Original text: Das bieten wir:, key: -1264c02f'
+            label: Text
+            name: '-1264c02f'
+            widget: string
+          - hint: >-
+              Original text: Facettenreiches Umfeld, das eine spannende und
+              abwechslungsreiche Tätigkeit garantiert., key: -1c3a76fa
+            label: Text
+            name: '-1c3a76fa'
+            widget: string
+          - hint: >-
+              Original text: Unbefristetes Arbeitsverhältnis, um Dir für die
+              Zukunft die nötige Sicherheit zu geben., key: 1616726b
+            label: Text
+            name: 1616726b
+            widget: string
+          - hint: >-
+              Original text: Attraktive Vergütung, die auf Deine Leistung
+              abgestimmt ist., key: -2d401516
+            label: Text
+            name: '-2d401516'
+            widget: string
+          - hint: >-
+              Original text: Individuelle Weiterbildungsmöglichkeiten, um Dich
+              persönlich und fachlich zu fördern., key: -5e605e39
+            label: Text
+            name: '-5e605e39'
+            widget: string
+          - hint: >-
+              Original text: Freundliches und sympathisches Team, das Dich gerne
+              herzlich willkommen heißen möchte., key: 34ab6b79
+            label: Text
+            name: 34ab6b79
+            widget: string
+          - hint: 'Original text: Du erkennst Dich wieder?, key: -7aa14e2c'
+            label: Text
+            name: '-7aa14e2c'
+            widget: string
+          - hint: >-
+              Original text: Dann lass uns gerne Deine Bewerbungsunterlagen per
+              E-Mail zukommen an: , key: -54b52df0
+            label: Text
+            name: '-54b52df0'
+            widget: string
+          - hint: >-
+              Original text: Werde Teil unserer Praxis-Familie, wir freuen uns
+              auf Dich!, key: -682141c0
+            label: Text
+            name: '-682141c0'
+            widget: string
+          - hint: 'Original text: Zuständige Aufsichtsbehörde:, key: 57c3c58d'
+            label: Text
+            name: 57c3c58d
+            widget: string
+          - hint: 'Original text: Bezirkszahnärztkammer Karlsruhe, key: 34d55d03'
+            label: Text
+            name: 34d55d03
+            widget: string
+          - hint: 'Original text: Hindenburgstraße 2, key: -2897e270'
+            label: Text
+            name: '-2897e270'
+            widget: string
+          - hint: 'Original text: 68167 Mannheim, key: -3d0f933b'
+            label: Text
+            name: '-3d0f933b'
+            widget: string
+          - hint: 'Original text: Zuständige Kammer:, key: -523c8020'
+            label: Text
+            name: '-523c8020'
+            widget: string
+          - hint: >-
+              Original text: Landeszahnärztekammer Baden-Württemberg, key:
+              -16ea3e58
+            label: Text
+            name: '-16ea3e58'
+            widget: string
+          - hint: 'Original text: Albstadtweg 9 70567 Stuttgart, key: 31f8b526'
+            label: Text
+            name: 31f8b526
+            widget: string
+          - hint: 'Original text: Berufsbezeichnung: , key: -3bea8c4d'
+            label: Text
+            name: '-3bea8c4d'
+            widget: string
+          - hint: >-
+              Original text: Zahnärzte (verliehen in Temeschburg / Rumänien),
+              key: -526c24fe
+            label: Text
+            name: '-526c24fe'
+            widget: string
+          - hint: >-
+              Original text: Approbation erteilt durch das Regierungspräsidium
+              Stuttgart, Bundesrepublik Deutschland, key: -41f23930
+            label: Text
+            name: '-41f23930'
+            widget: string
+          - hint: 'Original text: Tätigkeitsschwerpunkte: , key: 16028cf1'
+            label: Text
+            name: 16028cf1
+            widget: string
+          - hint: >-
+              Original text: Parodontologie – Implantologie – Endodontie., key:
+              -40330125
+            label: Text
+            name: '-40330125'
+            widget: string
+          - hint: >-
+              Original text: (Anerkennung dieser Tätigkeitsschwerpunkte gem. §14
+              der Berufsordnung der Landeszahnärztekammer Baden - Württemberg),
+              key: -6e88ea35
+            label: Text
+            name: '-6e88ea35'
+            widget: text
+          - hint: 'Original text: Berufsrechtliche Regelungen: , key: -6582fdf8'
+            label: Text
+            name: '-6582fdf8'
+            widget: string
+          - hint: 'Original text: - Zahnheilkundegesetz, key: 152fecbb'
+            label: Text
+            name: 152fecbb
+            widget: string
+          - hint: 'Original text: - Heilberufe-Kammergesetz, key: -3c8ae172'
+            label: Text
+            name: '-3c8ae172'
+            widget: string
+          - hint: 'Original text: - Gebührenordnung für Zahnärzte, key: -38245d31'
+            label: Text
+            name: '-38245d31'
+            widget: string
+          - hint: >-
+              Original text: - Berufsordnung für Zahnärzte (www.zaek-nr.de),
+              key: -1c8d7b08
+            label: Text
+            name: '-1c8d7b08'
+            widget: string
+          - hint: >-
+              Original text: Inhaltlich Verantwortlicher gemäß § 10 Absatz 3
+              MDStV:, key: 590063d
+            label: Text
+            name: 590063d
+            widget: string
+          - hint: >-
+              Original text: Ladar Emil Hindenburgstr. 2, 72250 Freudenstadt,
+              key: 79c71f2d
+            label: Text
+            name: 79c71f2d
+            widget: string
+          - hint: 'Original text: Haftungsauschluss / Disclaimer, key: -57082315'
+            label: Text
+            name: '-57082315'
+            widget: string
+          - hint: 'Original text: 1. Inhalt des Onlineangebotes, key: -6499078e'
+            label: Text
+            name: '-6499078e'
+            widget: string
+          - hint: >-
+              Original text: Der Inhaltsanbieter und Betreiber der Seiten, im
+              Folgenden auch mit "Autor" bezeichnet, übernimmt keinerlei Gewähr
+              für die Aktualität, Korrektheit, Vollständigkeit oder Qualität der
+              bereitgestellten Informationen. Haftungsansprüche gegen den Autor,
+              welche sich auf Schäden materieller oder ideeller Art beziehen,
+              die durch die Nutzung oder Nichtnutzung der dargebotenen
+              Informationen bzw. durch die Nutzung fehlerhafter und
+              unvollständiger Informationen verursacht wurden sind grundsätzlich
+              ausgeschlossen, sofern seitens des Autors kein nachweislich
+              vorsätzliches oder grob fahrlässiges Verschulden vorliegt. Alle
+              Angebote sind freibleibend und unverbindlich. Der Autor behält es
+              sich ausdrücklich vor, Teile der Seiten oder das gesamte Angebot
+              ohne gesonderte Ankündigung zu verändern, zu ergänzen, zu löschen
+              oder die Veröffentlichung zeitweise oder endgültig einzustellen.,
+              key: 2bf829f6
+            label: Text
+            name: 2bf829f6
+            widget: text
+          - hint: 'Original text: 2. Verweise und Links, key: -2a5ecace'
+            label: Text
+            name: '-2a5ecace'
+            widget: string
+          - hint: >-
+              Original text: Bei direkten oder indirekten Verweisen auf fremde
+              Internetseiten ("Links"), die außerhalb des
+              Verantwortungsbereiches des Autors liegen, würde eine
+              Haftungsverpflichtung ausschließlich in dem Fall in Kraft treten,
+              in dem der Autor von den Inhalten Kenntnis hat und es ihm
+              technisch möglich und zumutbar wäre, die Nutzung im Falle
+              rechtswidriger Inhalte zu verhindern. Der Autor erklärt daher
+              ausdrücklich, dass zum Zeitpunkt der Linksetzung die
+              entsprechenden verlinkten Seiten frei von illegalen Inhalten
+              waren. Der Autor hat keinerlei Einfluss auf die aktuelle und
+              zukünftige Gestaltung und auf die Inhalte der
+              gelinkten/verknüpften Seiten. Deshalb distanziert er sich hiermit
+              ausdrücklich von allen Inhalten aller gelinkten/verknüpften
+              Seiten, die nach der Linksetzung verändert wurden. Diese
+              Feststellung gilt für alle innerhalb des eigenen Internetangebotes
+              gesetzten Links und Verweise sowie für Fremdeinträge in vom Autor
+              eingerichteten Gästebüchern, Diskussionsforen und Mailinglisten.
+              Für illegale, fehlerhafte oder unvollständige Inhalte und
+              insbesondere für Schäden, die aus der Nutzung oder Nichtnutzung
+              solcherart dargebotener Informationen entstehen, haftet allein der
+              Anbieter der Seite, auf welche verwiesen wurde, nicht derjenige,
+              der über Links auf die jeweilige Veröffentlichung lediglich
+              verweist., key: -20976df8
+            label: Text
+            name: '-20976df8'
+            widget: text
+          - hint: 'Original text: 3. Urheber- und Kennzeichenrecht, key: 2e602122'
+            label: Text
+            name: '2e602122'
+            widget: string
+          - hint: >-
+              Original text: Der Autor ist bestrebt, in allen Publikationen die
+              Urheberrechte der verwendeten Grafiken, Tondokumente,
+              Videosequenzen und Texte zu beachten, von ihm selbst erstellte
+              Grafiken, Tondokumente, Videosequenzen und Texte zu nutzen oder
+              auf lizenzfreie Grafiken, Tondokumente, Videosequenzen und Texte
+              zurückzugreifen. Alle innerhalb des Internetangebotes genannten
+              und ggf. durch Dritte geschützten Marken- und Warenzeichen
+              unterliegen uneingeschränkt den Bestimmungen des jeweils gültigen
+              Kennzeichenrechts und den Besitzrechten der jeweiligen
+              eingetragenen Eigentümer. Allein aufgrund der bloßen Nennung ist
+              nicht der Schluss zu ziehen, dass Markenzeichen nicht durch Rechte
+              Dritter geschützt sind! Das Copyright für veröffentlichte, vom
+              Autor selbst erstellte Objekte bleibt allein beim Autor der
+              Seiten. Eine Vervielfältigung oder Verwendung solcher Grafiken,
+              Tondokumente, Videosequenzen und Texte in anderen elektronischen
+              oder gedruckten Publikationen ist ohne ausdrückliche Zustimmung
+              des Autors nicht gestattet., key: 28cbdfe1
+            label: Text
+            name: 28cbdfe1
+            widget: text
+          - hint: >-
+              Original text: 4. Rechtswirksamkeit dieses Haftungsausschlusses,
+              key: dd450f7
+            label: Text
+            name: dd450f7
+            widget: string
+          - hint: >-
+              Original text: Dieser Haftungsausschluss ist als Teil des
+              Internetangebotes zu betrachten, von dem aus auf diese Seite
+              verwiesen wurde. Sofern Teile oder einzelne Formulierungen dieses
+              Textes der geltenden Rechtslage nicht, nicht mehr oder nicht
+              vollständig entsprechen sollten, bleiben die übrigen Teile des
+              Dokumentes in ihrem Inhalt und ihrer Gültigkeit davon unberührt.,
+              key: -4ddb24ab
+            label: Text
+            name: '-4ddb24ab'
+            widget: text
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: /ambiente/, key: 3b5c7db3'
+            label: Link
+            name: 3b5c7db3
+            widget: string
+          - hint: 'Original link: /behandlung/, key: -3202a414'
+            label: Link
+            name: '-3202a414'
+            widget: string
+          - hint: 'Original link: /uber-uns/, key: 5048119'
+            label: Link
+            name: '5048119'
+            widget: string
+          - hint: 'Original link: /team/, key: 56c5cea3'
+            label: Link
+            name: 56c5cea3
+            widget: string
+          - hint: 'Original link: /wir-suchen-dich/, key: 458fe1e4'
+            label: Link
+            name: 458fe1e4
+            widget: string
+          - hint: 'Original link: /contact/, key: 16bdc13e'
+            label: Link
+            name: 16bdc13e
+            widget: string
+          - hint: 'Original link: https://www.facebook.com, key: 6696ca1f'
+            label: Link
+            name: 6696ca1f
+            widget: string
+          - hint: 'Original link: https://www.instagram.com, key: -7e255c1'
+            label: Link
+            name: '-7e255c1'
+            widget: string
+          - hint: 'Original link: https://www.twitter.com, key: -1ec30500'
+            label: Link
+            name: '-1ec30500'
+            widget: string
+          - hint: 'Original link: /behandlung/prophylaxe, key: -6d989e3e'
+            label: Link
+            name: '-6d989e3e'
+            widget: string
+          - hint: >-
+              Original link: /behandlung/asthetische-zahnheilkunde, key:
+              -3e619320
+            label: Link
+            name: '-3e619320'
+            widget: string
+          - hint: 'Original link: /behandlung/parodontologie, key: 263b307c'
+            label: Link
+            name: 263b307c
+            widget: string
+          - hint: >-
+              Original link: /behandlung/funktionsanalytische-massnahmen, key:
+              2fe902a6
+            label: Link
+            name: 2fe902a6
+            widget: string
+          - hint: >-
+              Original link: /behandlung/wurzelbehandlung-unter-mikroskop, key:
+              -31c7f5c0
+            label: Link
+            name: '-31c7f5c0'
+            widget: string
+          - hint: 'Original link: /behandlung/bleaching, key: cbe244b'
+            label: Link
+            name: cbe244b
+            widget: string
+          - hint: 'Original link: /behandlung/implantologie, key: 7e41726c'
+            label: Link
+            name: 7e41726c
+            widget: string
+          - hint: 'Original link: /behandlung/zahnersatzversorgung, key: -14d8d6ac'
+            label: Link
+            name: '-14d8d6ac'
+            widget: string
+          - hint: 'Original link: /behandlung/kinderzahnheilkunde, key: 1551e80b'
+            label: Link
+            name: 1551e80b
+            widget: string
+          - hint: 'Original link: /behandlung/inraoral-scanner, key: 7d11c47f'
+            label: Link
+            name: 7d11c47f
+            widget: string
+          - hint: 'Original link: /impressum/, key: 5d2d9007'
+            label: Link
+            name: 5d2d9007
+            widget: string
+          - hint: 'Original link: https://www.facebook.com/, key: 6c4279f0'
+            label: Link
+            name: 6c4279f0
+            widget: string
+          - hint: 'Original link: https://www.instagram.com/, key: b979dd0'
+            label: Link
+            name: b979dd0
+            widget: string
+          - hint: 'Original link: https://www.twitter.com/, key: 4662652f'
+            label: Link
+            name: 4662652f
+            widget: string
+          - hint: 'Original link: https://webflow.com, key: 6bf929e6'
+            label: Link
+            name: 6bf929e6
+            widget: string
+          - hint: 'Original link: https://studiorovst.com/, key: -54551e99'
+            label: Link
+            name: '-54551e99'
+            widget: string
+          - hint: 'Original link: /style-guide/, key: -4739f602'
+            label: Link
+            name: '-4739f602'
+            widget: string
+          - hint: 'Original link: https://portfolio-533c2b.webflow.io/, key: 4bdb2001'
+            label: Link
+            name: 4bdb2001
+            widget: string
+          - hint: 'Original link: mailto:praxis-ladar@t-online.de, key: 3a0b1301'
+            label: Link
+            name: 3a0b1301
+            widget: string
+          - hint: 'Original link: #team, key: 2237900'
+            label: Link
+            name: '2237900'
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: 30707f4c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i4b7ddefb
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 41e0a949
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5e5d566a
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7648271c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i2862ab57
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4753bdb2
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 44b25e42
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5dca24ac
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 441ca54
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 35b94fac
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: if28fc48
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 38dc8b65
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 10d4d8d4
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i18821a9b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1393d78f
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '45106192'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i511a1516
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 74e125cc
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i29a4e573
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 48fa7ed0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
